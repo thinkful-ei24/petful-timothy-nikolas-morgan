@@ -40,12 +40,11 @@ const BASE_URL = process.env.REACT_APP_DB_URL || "http://localhost:8080/api";
  * @returns {Object} with { adoptCat, adoptDog }
  * @throws on DB error
  */
-function initialize() {
-  return Promise.all([fetchDog(), fetchCat()]).then(res => ({
+const initialize = () =>
+  Promise.all([fetchDog(), fetchCat()]).then(res => ({
     dogToAdopt: res[0],
     catToAdopt: res[1]
   }));
-}
 
 /**
  * Fetches the current dog from the database if it exists

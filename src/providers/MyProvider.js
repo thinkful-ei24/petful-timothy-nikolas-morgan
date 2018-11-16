@@ -23,24 +23,26 @@ export default class MyProvider extends Component {
   };
 
   componentDidMount() {
-    console.log("BEFORE:", this.state);
     db.initialize().then(pets =>
-      this.setState(
-        {
-          ...pets,
-          loading: false
-        },
-        () => console.log("AFTER:", this.state)
-      )
+      this.setState({
+        ...pets,
+        loading: false
+      })
     );
   }
 
   adoptCat() {
-    db.adoptCat().then(cat => this.setState({ catToAdopt: cat }));
+    console.log("adopting cat!");
+    db.adoptCat()
+      .then(cat => this.setState({ catToAdopt: cat }))
+      .catch(() => this.setState({ catToAdopt: null }));
   }
 
   adoptDog() {
-    db.adoptDog().then(dog => this.setState({ dogToAdopt: dog }));
+    console.log("adopting dog!");
+    db.adoptDog()
+      .then(dog => this.setState({ dogToAdopt: dog }))
+      .catch(() => this.setState({ dogToAdopt: null }));
   }
 
   render() {
