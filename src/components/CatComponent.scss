@@ -1,0 +1,24 @@
+.Cats {
+	display: inline-block;
+	flex-direction: column;
+	border: black 1px solid;
+	flex: 1;
+	padding: 12px;
+}
+
+.Cats img {
+	margin: 0 auto;
+	width: 60%;
+}
+
+.dlContainer {
+	display: flex;
+	margin: 0 auto;
+	width: 50%;
+	flex-direction: column;
+	justify-content: flex-start;
+	text-align: left;
+}
+
+.AdoptButton {
+}
