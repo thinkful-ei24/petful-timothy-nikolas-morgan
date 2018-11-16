@@ -36,7 +36,7 @@ export default class MyProvider extends Component {
   }
 
   adoptCat() {
-    console.log("Adopting cat!");
+    db.adoptCat().then(cat => this.setState({ ...cat }));
   }
 
   adoptDog() {
