@@ -11,11 +11,18 @@ export default class Dashboard extends Component {
 
 	render() {
 		console.log(this.context);
+		if (this.context.loading) {
+			return <div>LOADING</div>;
+		}
+
 		return (
-			<div className="GreaterContainer">
-				<CatComponent />
-				<DogComponent />
-			</div>
+			<>
+				<h1>Petful</h1>
+				<div className="GreaterContainer">
+					<CatComponent />
+					<DogComponent />
+				</div>
+			</>
 		);
 	}
 }
