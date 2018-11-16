@@ -21,7 +21,7 @@
 
 /**
  * - DATA OVERVIEW -
- * All data is managed through the exported `data` interface
+ * All data is managed through the context interface in MyProvider
  *
  * - The state should be populated when the main component mounts with `data.initialize()`
  *   - loading state is set to true until data returns

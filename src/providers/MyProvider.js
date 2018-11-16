@@ -4,8 +4,9 @@ export const MyContext = React.createContext();
 
 /**
  * Context Usage:
- * @param dogToAdopt: Object | null if no dogs left
- * @param catToAdopt: Object | null if no cats left
+ * @param {Object | null} dogToAdopt - null if no dogs left
+ * @param {Object | null} catToAdopt - null if no cats left
+ * @param {Boolean} loading
  * @interface db - a way to interact with database access
  * 		@method db.adoptCat - Call this when someone clicks adopt for cat
  * 		@method db.adoptDog - Call this when someone clicks adopt for dog
@@ -54,13 +55,13 @@ export default class MyProvider extends Component {
     // );
   }
 
-  adoptCat = () => {
+  adoptCat() {
     console.log("Adopting cat!");
-  };
+  }
 
-  adoptDog = () => {
+  adoptDog() {
     console.log("Adopting dog!");
-  };
+  }
 
   render() {
     return (
