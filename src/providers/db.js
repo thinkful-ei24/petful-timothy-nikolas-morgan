@@ -54,10 +54,10 @@
  *
  */
 
-const data = {
+const db = {
   initialize: 1,
   adoptDog: 2,
   adoptCat: 3
 };
 
-export default data;
+export default db;
