@@ -62,18 +62,20 @@ const fetchCat = () => soFetch(`${BASE_URL}/cat`);
 const fetchDog = () => soFetch(`${BASE_URL}/dog`);
 
 /**
- * Deletes the current dog from the database and returns a new dog
- * @returns {Object}
+ * Deletes the current dog from the database and fetches a new dog
+ * @returns {Object | null}
  * @throws on DB error
  */
-function adoptDog() {}
+const adoptDog = () =>
+  soFetch(`${BASE_URL}/dog`, { method: "DELETE" }).then(() => fetchDog());
 
 /**
- * Deletes the current cat from the database and returns a new cat
- * @returns {Object}
+ * Deletes the current cat from the database and fetches a new cat
+ * @returns {Object | null}
  * @throws on DB error
  */
-function adoptCat() {}
+const adoptCat = () =>
+  soFetch(`${BASE_URL}/cat`, { method: "DELETE" }).then(() => fetchCat());
 
 const db = {
   initialize,

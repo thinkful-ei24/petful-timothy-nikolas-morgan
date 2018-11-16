@@ -13,7 +13,14 @@ const normalizeResponseErrors = res => {
       message: res.statusText
     });
   }
-  return res.json();
+
+  if (
+    res.headers.has("content-type") &&
+    res.headers.get("content-type").startsWith("application/json")
+  ) {
+    return res.json();
+  }
+  return res;
 };
 
 /**

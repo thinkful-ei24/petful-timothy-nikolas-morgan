@@ -12,42 +12,42 @@ export const MyContext = React.createContext();
  * 		@method db.adoptDog - Call this when someone clicks adopt for dog
  */
 export default class MyProvider extends Component {
-	state = {
-		dogToAdopt: null,
-		catToAdopt: null,
-		loading: true,
-		db: {
-			adoptCat: this.adoptCat,
-			adoptDog: this.adoptDog
-		}
-	};
+  state = {
+    dogToAdopt: null,
+    catToAdopt: null,
+    loading: true,
+    db: {
+      adoptCat: this.adoptCat.bind(this),
+      adoptDog: this.adoptDog.bind(this)
+    }
+  };
 
-	componentDidMount() {
-		console.log("BEFORE:", this.state);
-		db.initialize().then(pets =>
-			this.setState(
-				{
-					...pets,
-					loading: false
-				},
-				() => console.log("AFTER:", this.state)
-			)
-		);
-	}
+  componentDidMount() {
+    console.log("BEFORE:", this.state);
+    db.initialize().then(pets =>
+      this.setState(
+        {
+          ...pets,
+          loading: false
+        },
+        () => console.log("AFTER:", this.state)
+      )
+    );
+  }
 
-	adoptCat() {
-		db.adoptCat().then(cat => this.setState({ ...cat }));
-	}
+  adoptCat() {
+    db.adoptCat().then(cat => this.setState({ catToAdopt: cat }));
+  }
 
-	adoptDog() {
-		console.log("Adopting dog!");
-	}
+  adoptDog() {
+    db.adoptDog().then(dog => this.setState({ dogToAdopt: dog }));
+  }
 
-	render() {
-		return (
-			<MyContext.Provider value={this.state}>
-				{this.props.children}
-			</MyContext.Provider>
-		);
-	}
+  render() {
+    return (
+      <MyContext.Provider value={this.state}>
+        {this.props.children}
+      </MyContext.Provider>
+    );
+  }
 }
