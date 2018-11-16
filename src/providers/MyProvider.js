@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import db from "./db";
+import db from "./db";
 export const MyContext = React.createContext();
 
 /**
@@ -13,31 +13,9 @@ export const MyContext = React.createContext();
  */
 export default class MyProvider extends Component {
 	state = {
-		dogToAdopt: {
-			// PLACEHOLDER DATA
-			imageURL:
-				"http://www.dogster.com/wp-content/uploads/2015/05/Cute%20dog%20listening%20to%20music%201_1.jpg",
-			imageDescription:
-				"A smiling golden-brown golden retreiver listening to music.",
-			name: "Zeus",
-			sex: "Male",
-			age: 3,
-			breed: "Golden Retriever",
-			story: "Owner Passed away"
-		},
-		catToAdopt: {
-			// PLACEHOLDER DATA
-			imageURL:
-				"https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg",
-			imageDescription:
-				"Orange bengal cat with black stripes lounging on concrete.",
-			name: "Fluffy",
-			sex: "Female",
-			age: 2,
-			breed: "Bengal",
-			story: "Thrown on the street"
-		},
-		loading: false, // PLACEHOLDER DATA => default is true until DB call returns
+		dogToAdopt: null,
+		catToAdopt: null,
+		loading: true,
 		db: {
 			adoptCat: this.adoptCat,
 			adoptDog: this.adoptDog
@@ -45,18 +23,20 @@ export default class MyProvider extends Component {
 	};
 
 	componentDidMount() {
-		// UNCOMMENT WHEN DB WIRED UP
-		// db.initialize().then(res =>
-		//   this.setState({
-		//     dogToAdopt: res.dogToAdopt,
-		//     catToAdopt: res.catToAdopt,
-		//     loading: false
-		//   })
-		// );
+		console.log("BEFORE:", this.state);
+		db.initialize().then(pets =>
+			this.setState(
+				{
+					...pets,
+					loading: false
+				},
+				() => console.log("AFTER:", this.state)
+			)
+		);
 	}
 
 	adoptCat() {
-		console.log("Adopting cat!");
+		db.adoptCat().then(cat => this.setState({ ...cat }));
 	}
 
 	adoptDog() {

@@ -1,24 +1,3 @@
-// GET /api/cat
-/* 
-{
-  imageURL:'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg', 
-  imageDescription: 'Orange bengal cat with black stripes lounging on concrete.',
-  name: 'Fluffy',
-  sex: 'Female',
-  age: 2,
-  breed: 'Bengal',
-  story: 'Thrown on the street'
-}
-*/
-
-// catToAdopt context
-// dogToAdopt context
-// onAdoptPet() - onClick handler of the button within the Pet
-// fetchCat()
-// fetchDog()
-
-// GET /api/dog
-
 /**
  * - DATA OVERVIEW -
  * All data is managed through the context interface in MyProvider
@@ -51,13 +30,55 @@
  *  story: 'Owner Passed away'
  * }
  *
- *
  */
 
+import soFetch from "./db.fetch";
+const BASE_URL = process.env.REACT_APP_DB_URL || "http://localhost:8080/api";
+
+/**
+ * Hydrates the state from the DB on mount
+ * @returns {Object} with { adoptCat, adoptDog }
+ * @throws on DB error
+ */
+function initialize() {
+  return Promise.all([fetchDog(), fetchCat()]).then(res => ({
+    dogToAdopt: res[0],
+    catToAdopt: res[1]
+  }));
+}
+
+/**
+ * Fetches the current dog from the database if it exists
+ * @returns {Object | null}
+ * @throws on DB error
+ */
+const fetchCat = () => soFetch(`${BASE_URL}/cat`);
+
+/**
+ * Fetches the current cat from the database if it exists
+ * @returns {Object | null}
+ * @throws on DB error
+ */
+const fetchDog = () => soFetch(`${BASE_URL}/dog`);
+
+/**
+ * Deletes the current dog from the database and returns a new dog
+ * @returns {Object}
+ * @throws on DB error
+ */
+function adoptDog() {}
+
+/**
+ * Deletes the current cat from the database and returns a new cat
+ * @returns {Object}
+ * @throws on DB error
+ */
+function adoptCat() {}
+
 const db = {
-  initialize: 1,
-  adoptDog: 2,
-  adoptCat: 3
+  initialize,
+  adoptDog,
+  adoptCat
 };
 
 export default db;
